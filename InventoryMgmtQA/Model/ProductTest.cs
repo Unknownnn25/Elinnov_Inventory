@@ -44,6 +44,47 @@ namespace InventoryMgmtQA.Model
             Assert.IsFalse(isProductValid);
         }
 
-        // add more test cases here
-    }
+        // Added Test Case
+        [TestMethod]
+        public void TestAddProductQuantityNegative()
+        {
+            Product product = new()
+            {
+                Name = "TestProduct",
+                QuantityInStock = -1, // test for negative quantity
+                Price = 1.0M
+            };
+
+            var results = new List<ValidationResult>();
+            var context = new ValidationContext(product, null, null);
+            bool isProductValid = Validator.TryValidateObject(product, context, results, true);
+
+            // the product must NOT be valid since the QuantityInStock attribute has invalid value
+            Assert.IsFalse(isProductValid);
+        }
+
+
+        [TestMethod]
+        public void TestAddProductNoName()
+        {
+            // create a new product without a name
+            Product product = new()
+            {
+                Name = null, // no name provided
+                QuantityInStock = 1,
+                Price = 1.0M
+            };
+
+            var results = new List<ValidationResult>();
+            var context = new ValidationContext(product, null, null);
+            bool isProductValid = Validator.TryValidateObject(product, context, results, true);
+
+            // the product must NOT be valid since the Name attribute is required
+            Assert.IsFalse(isProductValid);
+}
+
+
+            }
+
+    
 }
