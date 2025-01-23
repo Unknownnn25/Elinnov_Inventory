@@ -81,7 +81,7 @@ namespace InventoryMgmtQA.Model
 
             // the product must NOT be valid since the Name attribute is required
             Assert.IsFalse(isProductValid);
-}
+        }
 
 
             }
